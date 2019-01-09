@@ -15,6 +15,8 @@ Then you can delete a folder recursively from your vault server:
 python vault-delete-recursively.py $FOLDER
 ```
 
+You need to have VAULT\_ADDR and VAULT\_TOKEN defined in your environment.
+
 # Maintainer
 
 Christian Beneke <c.beneke@wirelab.org>
