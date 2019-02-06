@@ -16,17 +16,28 @@ def main( maindir ):
         maindir = maindir + '/'
     dirs.put(maindir)
     while not dirs.empty():
-        curDir = dirs.get()
-        data = client.list(curDir).get('data')
+        curdir = dirs.get()
+
+        try:
+            if client.list(curdir) == None:
+                continue
+        except:
+            continue
+
+        data = client.list(curdir).get('data')
 
         if 'keys' not in data:
             continue
 
         for key in data.get('keys'):
             if key.endswith('/'):
-                dirs.put(curDir + key)
+                dirs.put(curdir + key)
             else:
-                files.put(curDir + key)
+                files.put(curdir + key)
+
+    if files.empty():
+        print('No files found in /' + maindir)
+        sys.exit()
 
     print('Will delete the following files:')
     for f in files.queue:
